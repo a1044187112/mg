@@ -1,11 +1,11 @@
 <template>
 	<div id="login">
 		<div class="title">注册</div>
-		<input id="phone" type="number" placeholder="请输入手机号" />
+		<input id="phone" type="number" placeholder="请输入手机号" value='15519178657' />
 		<input id="code" type="number" placeholder="请输入验证码" />
 		<button class="get_code" v-on:click="getCode">获取验证码</button> 
-		<input id="pwd" type="number" placeholder="请输入密码" />
-		<input id="con_pwd" type="number" placeholder="请确认密码" />
+		<input id="pwd" type="password" placeholder="请输入密码" value='123456' />
+		<input id="con_pwd" type="password" placeholder="请确认密码" />
 		
 		<button class="login" @click="regis"> register</button>
 	</div>
@@ -28,8 +28,7 @@
 					
 					let url = this.AURL+'v1/business/register/getCode?sign='+sign;
 					console.log(this.AURL);
-					this.ajax.post(url,JSON.stringify(data),false,this.callback);
-					console.log(data);
+					this.ajax.post(url,JSON.stringify(data),true,this.callback);
 				}
 				
 			},
@@ -43,15 +42,19 @@
 				let pwd = document.getElementById('pwd').value;
 				if( (phone.length == 11 && code.length != 0) && pwd.length>=6  ){
 					let data = {
-						mobile:phone,password:'',code:code
+						mobile:phone,password:pwd,code:code
 					};
 					let sign = this.ajax.md5(data,this.md5);
 					let url = this.AURL+'v1/business/register/account?sign='+sign;
-					this.ajax.post(url,JSON.stringify(data),false,this.regisCallback);
+					this.ajax.post(url,JSON.stringify(data),true,this.regisCallback);
 				}
 			},
 			regisCallback: function(result){
-				console.log(resule)
+				if(result.errcode == 0){
+					this.$router.push({path:'/login'});
+				}else if(result.errcode == '50002'){
+					console.log('该手机号已经被注册');
+				}
 			}
 			
 		},
@@ -64,9 +67,10 @@
 		line-height: 36px;
 		width: 80%;
 		margin: auto;
-		margin-top: 5px;
+		margin-top: 10px;
 		padding-left: 10px;
 		outline: none;
+		border:1px solid #afafaf;
 	}
 	button{
 		display: block;

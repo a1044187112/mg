@@ -26,7 +26,7 @@
 		<div class="footer">
 			<router-link to='#' class="item">美告</router-link>
 			<router-link to='/release' class="item">发布</router-link>
-			<router-link to='#' class="item">订单</router-link>
+			<router-link to='/order' class="item">订单</router-link>
 		</div>
 		<router-view></router-view>
 	</div>

@@ -1,6 +1,5 @@
 <template>
 	<div id="condition">
-		<areas></areas>
 		<ul class="ul_list">
 			<li class="li_i">
 				<span class="remind">投放时间段</span>
@@ -30,10 +29,8 @@
 	</div>
 </template>
 <script>
-	import areas from './area.vue'
 	export default{
-		name:"condition",
-		components:{areas}
+		name:"conditionCon",
 	}
 </script>
 <style>
@@ -65,6 +62,7 @@
 		line-height: 24px;
 		width: 120px;
 		padding-left: 10px;
+		border: 1px solid #AFAFAF;
 	}
 	#condition .price{
 		float: right;

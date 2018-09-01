@@ -1,14 +1,14 @@
 <template>
 	<div id="national">
-		<condition></condition>
+		<national-con></national-con>
 		
 	</div>
 </template>
 <script>
-	import condition from './condition.vue'
+	import nationalCon from './nationalCon.vue'
 	export default{
 		name:"national",
-		components:{condition}
+		components:{nationalCon}
 	}
 </script>
 <style>

@@ -22,20 +22,10 @@ let ajaxObject =  {
 			xhr.send(data); // 如果是POST  send中需要传请求的参数
 		}else
 			xhr.send(null)
-	
 		this.ajaxTimeout(xhr,fn);  // 请求超时处理
 	
 	},
-	ajaxTimeout:function(xhr,fn){  // 请求超时处理
-		var self = this;
-		var timeout = false; 
-		var timer = setTimeout(function(){  // 如果还没有返回结果 则请求超时
-			console.log("请求超时,请检查你的网络情况是否良好！");
-			console.log("请求超时！")
-			timeout = true;
-			//xhr.abort(); // 取消当前响应  关闭连接并且结束任何未完成的网络活动
-			console.log(xhr);
-		},10000);
+	ajaxTimeout:function(xhr,fn){  // 请求超时处理,
 		xhr.onreadystatechange = function() { // 交互状态发生改变时执行的函数
 			if(xhr.readyState == 4 && !timeout){  // 请求完成
 				clearTimeout(timer);
@@ -46,6 +36,15 @@ let ajaxObject =  {
 				return;
 			}
 		}
+		var self = this;
+		var timeout = false; 
+		var timer = setTimeout(function(){  // 如果还没有返回结果 则请求超时
+			console.log("请求超时,请检查你的网络情况是否良好！");
+			console.log("请求超时！")
+			timeout = true;
+			//xhr.abort(); // 取消当前响应  关闭连接并且结束任何未完成的网络活动
+			console.log(xhr);
+		},10000);
 	},
 	requestComplete : function(xhr,fn){  //请求完成之后调用回调函数返回数据
 		//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -70,11 +69,13 @@ let ajaxObject =  {
 	* 
 	*/ 
 	md5 : function(data,md5S){  // ,,
-		console.log(data);
+		// console.log(data);
 		let md5H = 'K3cpUmRaSDIc37ZlX5pW2bTICy458Fsr'; // 加密头
 		data = Object.values(data).sort(); // 字典排序 根据对象值排序  Object.keys(data).sort() 根据对象属性排序
 		data = JSON.stringify(data);
-		data = data.substring(2,data.length-2);
+		data = data.replace(/\[/g,"").replace(/\]/g,"").replace(/\"/g,"").replace(/\"/g,"").replace(/\,/g,"");
+		// data = data.substring(2,data.length-2);
+		// console.log(data);
 		let sign = md5S('K3cpUmRaSDIc37ZlX5pW2bTICy458Fsr'+data);
 		return sign;
 	},

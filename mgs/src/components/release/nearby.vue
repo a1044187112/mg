@@ -46,7 +46,7 @@
 </script>
 <style>
 	#nearby{
-		padding-bottom: 50px;
+		padding-bottom: 60px;
 	}
 	#nearby .list{
 		margin-top: 10px;

@@ -20,9 +20,7 @@
 					let data = {mobile:phone};
 					
 					let sign = this.ajax.md5(data,this.md5);
-					
 					let url = this.AURL+'v1/business/register/getCode?sign='+sign;
-					
 					this.ajax.post(url,JSON.stringify(data),false,this.callback);
 					console.log(data);
 				}
@@ -44,6 +42,7 @@
 		margin-top: 5px;
 		padding-left: 10px;
 		outline: none;
+		border: 1px solid #CFCFCF;
 	}
 	button{
 		display: block;
