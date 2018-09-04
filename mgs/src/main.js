@@ -6,12 +6,14 @@ import router from './router'
 import { ajaxObject,errorHandling,pageScroll } from '../config/ajax.js'
 import md5 from 'js-md5' // md5加密组件
 import defined from './defined.js'
+import { PIC } from '../config/pic.js'
 
 Vue.prototype.ajax = ajaxObject;
 Vue.prototype.errorHandling = errorHandling;
 Vue.prototype.pageScroll = pageScroll;
 Vue.prototype.AURL = 'http://api.niaoniao-blog.cn/';
 Vue.prototype.defined = defined;
+Vue.prototype.PIC = PIC;
 
 
 Vue.prototype.md5 = md5;

@@ -148,7 +148,7 @@
 		height: 42px;
 		margin-left: -10px;
 	}
-	button{
+	#details button{
 		outline: none;
 		border: none;
 		color: white;

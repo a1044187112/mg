@@ -1,6 +1,6 @@
 <template>
 	<div id="menu">
-		<button v-on:click="moreMenu">more</button>
+		<button class="more" v-on:click="moreMenu">more</button>
 		<div v-if="leftShow" class="left_bg" @click="moreMenu"></div>
 		<div id="left" class="left" ref="left">
 			<div class="hp" @click="jump">
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="footer">
-			<router-link to='#' class="item">美告</router-link>
+			<router-link to='/mg' class="item">美告</router-link>
 			<router-link to='/release' class="item">发布</router-link>
 			<router-link to='/order' class="item">订单</router-link>
 		</div>
@@ -82,7 +82,7 @@
 	#menu{
 		width: 100%;
 	}
-	button{
+	#menu button{
 		font-size: 18px;
 	}
 	.left_bg{

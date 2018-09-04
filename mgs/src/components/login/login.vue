@@ -22,6 +22,8 @@
 				this.$router.push({path:'/findPwd'});
 			},
 			login : function(){
+				console.log(arguments);
+				console.log(MouseEvent);
 				let phone = document.getElementById('phone').value;
 				let pwd = document.getElementById('code').value;
 				if(phone.length != 11 ){

@@ -3,7 +3,7 @@
 		<areas></areas>
 		<ul class="ul_list">
 			<li class="li_i">
-				<span class="remind">投放商圈</span>
+				<span class="remind">投放商圈或街道</span>
 				<input type="text" />
 			</li>
 			<li class="li_i">

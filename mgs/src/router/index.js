@@ -12,6 +12,8 @@ import customize from '@/components/release/customize'
 import order from '@/components/order/order'
 import details from '@/components/order/details'
 
+import mg from '@/components/mg/index'
+
 import user from '@/components/user/user'
 import edit from '@/components/user/edit'
 
@@ -85,6 +87,10 @@ export default new Router({
 				path:'/details',
 				name:'details',
 				component:details
+			},{
+				path:'/mg',
+				name:'mg',
+				component:mg
 			},
 			
   ]
