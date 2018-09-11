@@ -17,7 +17,7 @@
 	   /* eslint-disable no-undef*/
 		let mapObj = new AMap.Map('container', {
           center: [117.000923, 36.675807],
-          zoom: 8
+          zoom: 1
         });
 		//两个组件：放大缩小按钮和图层的切换
 		mapObj.plugin(['AMap.ToolBar', 'AMap.MapType'], function () {

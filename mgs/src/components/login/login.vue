@@ -54,7 +54,6 @@
 	}
 </script>
 <style>
-	
 	#login input{
 		height: 36px;
 		line-height: 36px;
@@ -107,5 +106,5 @@
 	.find_pwd:active,
 	.register:active{
 		color: #3037b5;
-	}
+	} 
 </style>

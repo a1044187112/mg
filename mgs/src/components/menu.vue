@@ -9,10 +9,10 @@
 			<div class="name">test</div>
 			<div class="leavl">等级</div>
 			<div class="list">
-				<router-link to="/map">
+				<router-link to="/order">
 					<div class="item">订单</div>
 				</router-link>
-				<router-link to="#">
+				<router-link to="/wallet">
 					<div class="item">钱包</div>
 				</router-link>
 				<router-link to="#">
@@ -157,5 +157,5 @@
 	.footer .item:active{
 		background: #2C3E50;
 		border-radius: 20px;
-	}
+	} 
 </style>

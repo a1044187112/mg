@@ -6,7 +6,7 @@
 		</div>
 		<div class="box">
 			<div class="adver">
-				<img src="../../assets/hp.jpg" />
+				<!-- <img src="../../assets/hp.jpg" /> -->
 			</div>
 			<input class="upload_i" type="file" />
 			<span class="upload">上传</span>
@@ -97,5 +97,5 @@
 		padding: 10px 0;
 		border-top: 1px solid #bfbfbf;
 		border-bottom: 1px solid #bfbfbf;
-	}
+	} 
 </style>

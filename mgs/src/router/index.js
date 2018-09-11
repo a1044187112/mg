@@ -10,12 +10,21 @@ import nearby from '@/components/release/nearby'
 import national from '@/components/release/national'
 import customize from '@/components/release/customize'
 import order from '@/components/order/order'
-import details from '@/components/order/details'
+import details from '@/components/order/details'
+
 
 import mg from '@/components/mg/index'
 
 import user from '@/components/user/user'
 import edit from '@/components/user/edit'
+import certi from '@/components/user/certi'
+import certiImg from '@/components/user/certiImg'                    
+
+import wallet from '@/components/wallet/wallet'
+import bankCard from '@/components/wallet/bankCard'
+import addCard from '@/components/wallet/addCard'
+import setPwd from '@/components/wallet/setPwd'
+
 
 Vue.use(Router)
 
@@ -74,11 +83,18 @@ export default new Router({
 			path:"/user",
 			name:"user",
 			component:user,
-			
 		},{
+					path:'/user/certi',
+					name:'certi',
+					component:certi
+				},{
 				path:'/user/edit',
 				name:'edit',
 				component:edit
+			},{
+				path:'/user/certi/img',
+				name:'certiImg',
+				component:certiImg
 			},{
 				path:'/order',
 				name:'order',
@@ -91,6 +107,22 @@ export default new Router({
 				path:'/mg',
 				name:'mg',
 				component:mg
+			},{
+				path:'/wallet',
+				name:'wallet',
+				component:wallet
+			},{
+				path:'/wallet/bankCard',
+				name:'bankCard',
+				component:bankCard
+			},{
+				path:'/wallet/addCard',
+				name:'addCard',
+				component:addCard
+			},{
+				path:'/wallet/setPwd',
+				name:'setPwd',
+				component:setPwd
 			},
 			
   ]

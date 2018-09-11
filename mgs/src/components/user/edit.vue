@@ -144,5 +144,5 @@
 		z-index: 101;
 		right: 10px;
 		top: 10px;
-	}
+	} 
 </style>

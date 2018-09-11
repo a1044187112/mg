@@ -67,5 +67,5 @@
 	}
 	.list .l_i .content span{
 		line-height: 36px;
-	}
+	} 
 </style>

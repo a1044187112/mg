@@ -162,5 +162,5 @@
 		width: 80%;
 		margin: auto;
 		margin-top: 20px;
-	}
+	} 
 </style>

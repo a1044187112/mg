@@ -49,5 +49,5 @@ footer{
 		width: 80px;
 		text-align: center;
 		margin-top: 8px;
-	}
+	} 
 </style>

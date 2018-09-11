@@ -126,5 +126,5 @@
 	.list .li .btn_a{
 		right: 80px;
 		
-	}
+	} 
 </style>

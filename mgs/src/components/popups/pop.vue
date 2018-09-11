@@ -161,9 +161,7 @@
 		position: fixed;
 		top: 0;
 		bottom: 0;
-		/* display: table-cell; */
 		text-align: center;
-		/* vertical-align: middle; */
 		z-index: 999;
 	}
 	.pop_img .img_set{
@@ -195,5 +193,5 @@
 		overflow: auto;
 		border-radius: 10px;
 		margin-left: 20%;
-	}
+	} 
 </style>

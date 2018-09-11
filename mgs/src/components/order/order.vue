@@ -22,7 +22,7 @@
 	}
 </script>
 <style>
-	*{
+	 *{
 		list-style: none;
 		margin: 0;
 	}
@@ -55,5 +55,5 @@
 		height: 36px;
 		line-height: 36px;
 		
-	}
+	} 
 </style>

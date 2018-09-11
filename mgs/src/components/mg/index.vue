@@ -59,5 +59,5 @@
 	}
 	.m .m_2 .m_2_i{
 		margin-left: 20px;
-	}
+	} 
 </style>

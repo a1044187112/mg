@@ -79,5 +79,5 @@
 		z-index: 99;
 		border-radius: 50%;
 		background: #42B983;
-	}
+	} 
 </style>

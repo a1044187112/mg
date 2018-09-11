@@ -93,5 +93,5 @@
 		line-height: 28px;
 		width: 80px;
 		outline: none;
-	}
+	} 
 </style>
