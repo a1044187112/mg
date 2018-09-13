@@ -12,6 +12,8 @@
 				<ul class="d_d" @scroll="dScroll">
 					<li :class="{active:dSel == d.id}" class="d_d_i" v-for="d in dataD">{{d.day}}</li>
 				</ul>
+				<div class="top_line"></div>
+				<div class="bottom_line"></div>
 			</div>
 			<div class="btn">
 				<span class="btn_a" @click="cancel">取消</span>
@@ -25,7 +27,7 @@
 		name:'date',
 		data(){
 			return{
-				date_show:false,
+				date_show:true,
 				dataY:[],
 				dataM:[
 					{month:'',id:"0"},
@@ -87,21 +89,30 @@
 				this.dataD.push({day:"", id:32 });
 			},
 			yScroll(){
-				//滚动的高度
-				let scrollTop = event.srcElement.scrollTop;
-				this.ySel = this.selected(scrollTop,event);
-				this.initDateD(this.setDay());    // 计算day
+				let e = event;
+				let _this = this;
+				setTimeout(function(){ // 节流函数 不用频繁的执行函数
+					let scrollTop = e.srcElement.scrollTop;//滚动的高度
+					_this.ySel = _this.selected(scrollTop,e);
+					_this.initDateD(_this.setDay());    // 计算day
+				},200);
 			},
 			mScroll(){
-				//滚动的高度
-				let scrollTop = event.srcElement.scrollTop;
-				this.mSel = this.selected(scrollTop,event);
-				this.initDateD(this.setDay());    // 计算day
+				let e = event;
+				let _this = this;
+				setTimeout(function(){ // 节流函数 不用频繁的执行函数
+					let scrollTop = e.srcElement.scrollTop;//滚动的高度
+					_this.mSel = _this.selected(scrollTop,e);
+					_this.initDateD(_this.setDay());    // 计算day
+				},200);
 			},
 			dScroll(){
-				//滚动的高度
-				let scrollTop = event.srcElement.scrollTop;
-				this.dSel = this.selected(scrollTop,event);
+				let e = event;
+				let _this = this;
+				setTimeout(function(){ // 节流函数 不用频繁的执行函数
+					let scrollTop = e.srcElement.scrollTop;//滚动的高度
+					_this.dSel = _this.selected(scrollTop,e);
+				},200);
 			},
 			selected(scrollTop,event){
 				// 获取元素
@@ -110,9 +121,20 @@
 				let liHeight = selector.offsetHeight;
 				//根据滚动的高度计算哪一个应该被 选中
 				let num = Math.floor(scrollTop/liHeight); // 取整
-				num += 1;
-				// event.srcElement.scrollTop = num*liHeight;
-				return num;
+				
+				if(scrollTop%liHeight==0){ // 
+					return num+1;
+				}else{
+					let st = scrollTop%liHeight;
+					if(st>liHeight/2){
+						num += 1;
+						event.srcElement.scrollTop = num*liHeight;
+						return num+1;
+					}else{
+						event.srcElement.scrollTop = num*liHeight;
+						return num;
+					}
+				}
 			},
 			setDay(){
 				let yearText = document.querySelector('.d_y_i.active').innerText;
@@ -144,6 +166,9 @@
 				this.date_show = false;
 			}
 		},
+		destroyed:function(){
+			console.log(55555)
+		}
 		
 	}
 </script>
@@ -173,6 +198,17 @@
 		background: white;
 		width: 100%;
 		justify-content: space-around;
+		position: relative;
+	}
+	#date .d_con .d_con_i .bottom_line,
+	#date .d_con .d_con_i .top_line{
+		position: absolute;
+		width: 90%;
+		margin-top: 36px;
+		border-top: 1px solid crimson;
+	}
+	#date .d_con .d_con_i .bottom_line{
+		margin-top: 72px;
 	}
 	#date .d_con .d_con_i ul{
 		height: 108px;
@@ -184,10 +220,11 @@
 	#date .d_con .d_con_i ul li{
 		height: 36px;
 		line-height: 36px;
-		font-size: 20px;
+		font-size: 16px;
 	}
 	#date .d_con .d_con_i ul li.active{
-		border-bottom: 1px solid #ff0000;
+		/* border-bottom: 1px solid #ff0000; */
+		font-size: 20px;
 	}
 	#date .d_con .btn{
 		width: 100%;

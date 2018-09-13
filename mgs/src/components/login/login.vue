@@ -7,13 +7,15 @@
 		<button class="register" @click="register">立即注册</button>
 		<button class="find_pwd" @click="findPwd">找回密码</button>
 		<!-- <pop></pop> -->
+		<d></d>
 	</div>
 </template>
 <script>
 	import pop from '../popups/pop.vue'
+	import d from '../date/date'
 	export default{
 		name:"login",
-		components:{pop},
+		components:{pop,d},
 		methods: {
 			register : function(){
 				this.$router.push({path: '/register'})

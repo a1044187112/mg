@@ -24,7 +24,12 @@ import wallet from '@/components/wallet/wallet'
 import bankCard from '@/components/wallet/bankCard'
 import addCard from '@/components/wallet/addCard'
 import setPwd from '@/components/wallet/setPwd'
+import balance from '@/components/wallet/balance'
+import baDetail from '@/components/wallet/baDetail'
 
+import set from '@/components/setting/set' 
+import account from '@/components/setting/account'
+import certiCpd from '@/components/setting/certiCpd'
 
 Vue.use(Router)
 
@@ -37,7 +42,7 @@ export default new Router({
 		},{
 			path:"/register",
 			name:"register",
-			component:register
+			component:register 
 		},
 		{
 			path:"/findPwd",
@@ -56,7 +61,6 @@ export default new Router({
 				}
 			],
 			redirect:'/map'
-				
     },
 		{
 			path:"/release",
@@ -123,7 +127,27 @@ export default new Router({
 				path:'/wallet/setPwd',
 				name:'setPwd',
 				component:setPwd
-			},
-			
+			},{
+				path:'/wallet/balance',
+				name:'balance',
+				component:balance
+			},{
+				path:'/wallet/balance/baDetail',
+				name:'baDetail',
+				component:baDetail
+			},{
+				path:'/set',
+				name:'set',
+				component:set
+			},{
+				path:'/set/account',
+				name:'account',
+				component:account
+			},{
+				path:'/set/account/certiCpd',
+				name:'certiCpd',
+				component:certiCpd
+			}
+			         
   ]
 })

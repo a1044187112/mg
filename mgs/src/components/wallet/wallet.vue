@@ -5,11 +5,14 @@
 		</div>
 		<ul class="w_u">
 			<li class="w_l">
-				<span class="w_l_t">银行卡</span>
+				<router-link to='/wallet/bankCard' class="link">
+					<span class="w_l_t">银行卡</span>
+				</router-link>
 			</li>
 			<li class="w_l">
-				<span class="w_l_t">账户余额</span>
-				<span class="w_l_val">1000元</span>
+				<router-link to='/wallet/balance' class="link">
+					<span class="w_l_t">账户余额</span><span class="w_l_val">1000元</span>
+				</router-link>
 			</li>
 			<li class="w_l">
 				<span class="w_l_t">交易记录</span>
@@ -35,18 +38,25 @@
 	}
 	#wallet .title{
 		text-align: center;
-		font-size: 18px;
+		font-size: 18px;      
 		height: 36px;
 	}
 	#wallet .w_u .w_l{
 		height: 42px;
 		line-height: 42px;
 	}
+	#wallet .w_u .w_l .link{
+		display: block;
+		width: 100%; 
+		color: #000000;
+	}
 	#wallet .w_u .w_l .w_l_t{
 		display: inline-block;
-		width: 30%;
+		width: 30%;  
 		text-align: left;
 		margin-left: 10%;
+		text-decoration: none;
+		color: #000000;
 	}
 	#wallet .w_u .w_l .w_l_val{
 		width: 50%;
@@ -58,4 +68,4 @@
 		padding-top: 20px;
 		margin-top: 20px;
 	} 
-</style>
+</style>      

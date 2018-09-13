@@ -6,7 +6,7 @@
 		</div>
 		<div class="box">
 			<div class="adver">
-				<!-- <img src="../../assets/hp.jpg" /> -->
+				<img src="../../assets/hp.jpg" />
 			</div>
 			<input class="upload_i" type="file" />
 			<span class="upload">上传</span>

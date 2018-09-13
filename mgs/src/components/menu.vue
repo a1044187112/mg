@@ -18,7 +18,7 @@
 				<router-link to="#">
 					<div class="item">客服</div>
 				</router-link>
-				<router-link to="#">
+				<router-link to="/set">
 					<div class="item">设置</div>
 				</router-link>
 			</div>
