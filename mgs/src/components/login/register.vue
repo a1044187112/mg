@@ -1,101 +1,185 @@
 <template>
-	<div id="login">
-		<div class="title">注册</div>
-		<input id="phone" type="number" placeholder="请输入手机号" value='15519178657' />
-		<input id="code" type="number" placeholder="请输入验证码" />
-		<button class="get_code" v-on:click="getCode">获取验证码</button> 
-		<input id="pwd" type="password" placeholder="请输入密码" value='123456' />
-		<input id="con_pwd" type="password" placeholder="请确认密码" />
-		
-		<button class="login" @click="regis"> register</button>
+	<div id="register">
+		<hea-title :hea-msg="par_hea" @ret="retBtn"></hea-title>
+		<div class="con">
+			<div class="remind">欢迎加入美告</div>
+			<input id="phone" type="number" placeholder="请输入手机号码"  />
+			<input id="code" type="number" placeholder="请输入验证码"  />
+			<div class="code_btn" id="get_code" v-if="is_get_code" @click="getCode">获取验证码</div>
+			<div class="code_btn time"  id="get_code_disable" v-if="!is_get_code">{{countdown}}s</div>
+			<input id="pwd" type="password" placeholder="请输入新密码(不能少于6位)"  />
+			<div class="ckeck" id="check" @click="check" v-bind:class="{active:check_pwd}"></div>
+			<button class="login" @click='login'>注册</button>
+			<div class="protocol">注册代表您已同意<span class="info">《美告用户协议》</span></div>
+		</div>
+		<component :msg='tips_remind' v-bind:is='which_to_show'></component>
 	</div>
 </template>
 <script>
+	import tips from '../popups/tips.vue'
+	import heaTitle from '../header/header.vue'
 	export default{
-		name:"register",
+		name:"login",
+		components:{tips,heaTitle},
 		data(){
 			return{
-				code:"" // 验证码
+				tips_remind:'手机号输入错误',
+				which_to_show:'', // 动态添加组件
+				is_get_code:true, // 获取验证码
+				check_pwd:false,  //查看密码
+				countdown:60,  //倒计时
+				par_hea:{
+					left_show:true,
+					t_val:"",
+					right_val:""
+				}
 			}
 		},
 		methods: {
-			getCode : function(){ // 获取验证码
+			addComponents(){
+				this.which_to_show = tips;
+				let _this = this;
+				setTimeout(function(){
+					_this.which_to_show = '';
+				},3000);
+			},
+			retBtn(){
+				console.log("触发事件");
+				
+			},
+			getCode(){
+				this.is_get_code = !this.is_get_code;
+				let _this = this;
+				let c = setInterval(function(){
+					_this.countdown--;
+					if(_this.countdown === 0){
+						_this.countdown = 60;
+						_this.is_get_code = !_this.is_get_code;
+						clearInterval(c);
+					}
+				},1000);
+			},
+			check(){
+				this.check_pwd = !this.check_pwd;
+				this.check_pwd?document.getElementById('check').setAttribute('type','text'):document.getElementById('check').setAttribute('type','password');
+			},
+			findPwd : function(){
+				this.$router.push({path:'/findPwd'});
+			},
+			login : function(){
 				let phone = document.getElementById('phone').value;
-				if(phone.length == 11){
-					let data = {mobile:phone};
-					
+				let pwd = document.getElementById('code').value;
+				if(phone.length != 11 ){
+					this.addComponents();
+					this.tips_remind = "手机号输入错误";
+				}else if(pwd.length<6){
+					this.addComponents();
+					this.tips_remind = "密码输入错误";
+				}else{
+					let data = {mobile:phone,password:pwd};
 					let sign = this.ajax.md5(data,this.md5);
-					
-					let url = this.AURL+'v1/business/register/getCode?sign='+sign;
-					console.log(this.AURL);
+					let url = this.AURL + 'v1/business/login/account?sign='+sign;
 					this.ajax.post(url,JSON.stringify(data),true,this.callback);
 				}
-				
 			},
 			callback : function(result){
 				console.log(result);
-			},
-			
-			regis : function(){
-				let phone = document.getElementById('phone').value;
-				let code = document.getElementById('code').value;
-				let pwd = document.getElementById('pwd').value;
-				if( (phone.length == 11 && code.length != 0) && pwd.length>=6  ){
-					let data = {
-						mobile:phone,password:pwd,code:code
-					};
-					let sign = this.ajax.md5(data,this.md5);
-					let url = this.AURL+'v1/business/register/account?sign='+sign;
-					this.ajax.post(url,JSON.stringify(data),true,this.regisCallback);
-				}
-			},
-			regisCallback: function(result){
 				if(result.errcode == 0){
-					this.$router.push({path:'/login'});
-				}else if(result.errcode == '50002'){
-					console.log('该手机号已经被注册');
+					this.defined.setAToken(result.data.access_token);
+					this.defined.setRToken(result.data.refresh_token);
+					this.$router.push({path:'/'})
+				}else if(result.errcode == '50003'){
+					console.log('您的账号未注册');
+				}else if(result.errcode == '50001'){
+					console.log('该账号与密码不匹配,请重新输入');
 				}
-			}
+			},
 			
 		},
 	}
 </script>
 <style>
-	
-	#login input{
-		height: 36px;
-		line-height: 36px;
+	#register .con{
 		width: 80%;
 		margin: auto;
-		margin-top: 10px;
-		padding-left: 10px;
-		outline: none;
-		border:1px solid #afafaf;
+		margin-top: 20px;
+		text-align: left;
 	}
-	button{
+	#register .con .remind{
+		font-size: 22px;
+		font-weight: 600;;
+		margin-bottom: 20px;
+	}
+	#register .con input{
+		border: none;
+		border-bottom: 1px solid #aaaaaa;
+		height: 48px;
+		width: 100%;
+		margin: auto;
+		margin-top: 5px;
+		text-indent: 20px;
+		outline: none;
+		margin-top: 15px;
+	}
+	#register .con  button{
 		display: block;
 		margin-top: 5;
 	}
-	.get_code{
-		float: right;
-		margin-right: 10%;
-		margin-top: 10px;
-		padding: 0 10px;
-		height: 30px;
+	#register .con .code_btn{
+		position: absolute;
+		top: 200px;
+		right: 10%;
+		height: 36px;
+		line-height: 36px;
+		width: 100px;
+		border: 1px solid #aaaaaa;
+		text-align: center;
+		border-radius: 10px;
+		font-size: 14px;
 	}
-	.login{
-		width: 80%;
-		height: 40px;
-		font-size: 24px;
+	#register .con .code_btn.time{
+		background: #e85c52;
+		color: white;
+		border: none;
+		letter-spacing: 2px;
+	}
+	#register .con .ckeck{
+		width: 25px;
+		height: 14px;
+		position: absolute;
+		top: 285px;
+		right: 10%;
+		background: url(../../../static/icon/icon16.png);
+		background-size: 100% 100%;
+	}
+	#register .con .ckeck.active{
+		background: url(../../../static/icon/icon18.png);
+		background-size: 100% 100%;
+	}
+	
+	#register .con .login{
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		font-size: 20px;
 		margin: auto;
 		margin-top: 80px;
-		background: #42B983;
+		background: #343434;
 		border: none;
 		color: white;
 		outline: none;
+		text-align: center;
+		border-radius: 10px;
+		letter-spacing: 4px;
 	}
-	.login:active{
-		background: #5cd39c;
+	#register .con .protocol{
+		width: 100%;
+		text-align: center;
+		margin-top: 10px;
+		font-size: 14px;
+		letter-spacing: 1px;
 	}
-	 
+	#register .con .protocol .info{
+		color: #e85c52;
+	}
 </style>

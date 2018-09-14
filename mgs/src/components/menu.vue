@@ -1,32 +1,35 @@
 <template>
 	<div id="menu">
-		<button class="more" v-on:click="moreMenu">more</button>
+		<div class="header">
+			<span class="t_left" @click="moreMenu"><img src="../assets/icon/icon9.png" /></span>
+			<span class="title">美告</span>
+			<span class="t_right"><img src="../assets/icon/icon10.png" />
+				<span class="info_text">2</span>
+			</span>
+		</div>
 		<div v-if="leftShow" class="left_bg" @click="moreMenu"></div>
 		<div id="left" class="left" ref="left">
 			<div class="hp" @click="jump">
 				<img src="../assets/hp.jpg" />
 			</div>
 			<div class="name">test</div>
-			<div class="leavl">等级</div>
+			<div class="leavl">未认证</div>
 			<div class="list">
-				<router-link to="/order">
-					<div class="item">订单</div>
-				</router-link>
-				<router-link to="/wallet">
-					<div class="item">钱包</div>
-				</router-link>
-				<router-link to="#">
-					<div class="item">客服</div>
-				</router-link>
-				<router-link to="/set">
-					<div class="item">设置</div>
+				<router-link v-for='item in menuList' v-bind:to="item.to">
+					<div class="item">
+						<img v-bind:src="item.img"  />
+						<span class="text">{{item.text}}</span>
+					</div>
 				</router-link>
 			</div>
 		</div>
 		<div class="footer">
-			<router-link to='/mg' class="item">美告</router-link>
-			<router-link to='/release' class="item">发布</router-link>
-			<router-link to='/order' class="item">订单</router-link>
+			<router-link v-for='item in bMenu'  v-bind:to="item.to" class="item">
+				<div class="btn active">
+					<div class="icon"></div>
+					<span class="text">{{item.text}}</span>
+				</div>
+			</router-link>
 		</div>
 		<router-view></router-view>
 	</div>
@@ -37,6 +40,17 @@
 		data(){
 			return {
 				leftShow:false,
+				menuList:[
+					{to:'/order',img:"/static/icon/icon11.png",text:"订单"},
+					{to:'/wallet',img:"/static/icon/icon12.png",text:"钱包"},
+					{to:'#',img:"/static/icon/icon13.png",text:"客服"},
+					{to:'/set',img:"/static/icon/icon14.png",text:"设置"},
+				],
+				bMenu:[
+					{to:"/mg",text:"美告"},
+					{to:"/release",text:"发布"},
+					{to:"/order",text:"订单"},
+				],
 			}
 		},
 		methods:{
@@ -48,7 +62,7 @@
 					let count = -scrollWidth;
 					time =  setInterval(function(){
 						left.style.left = count + "px";
-						count += 2 ;
+						count += 3 ;
 						if(count >= 0){
 							clearInterval(time);
 						}
@@ -82,8 +96,46 @@
 	#menu{
 		width: 100%;
 	}
-	#menu button{
-		font-size: 18px;
+	#menu .header{
+		position: fixed;
+		width: 100%;
+		height: 48px;
+		line-height: 48px;
+		font-size: 20px;
+		text-align: center;
+		z-index: 12;
+		box-shadow:  0 6px 4px rgba(0,0,0,0.3);
+		background: white;
+	}      
+	#menu .header .t_right,
+	#menu .header .t_left{
+		float: left;
+		display: inline-block;
+		width: 48px;
+		height: 48px;
+	}
+	#menu .header .t_right{
+		float: right;
+		position: relative;
+	} 
+	#menu .header .t_right img,
+	#menu .header .t_left img{
+		width: 28px;
+		margin-top: 10px;
+	}
+	#menu .header .t_right .info_text{
+		position: absolute;
+		width: 14px;
+		height: 14px;
+		font-size: 8px;
+		line-height: 14px;
+		text-align: center;
+		display: inline-block;
+		background: red;
+		color: white;
+		top: 8px;
+		right: 8px;
+		border-radius: 50%;
 	}
 	.left_bg{
 		width: 100%;
@@ -92,14 +144,14 @@
 		top: 0;
 		z-index: 99;
 	}
-	.left{
-		width: 50%;
+	#menu .left{
+		width: 65%;
 		position: fixed;
 		top: 0;
 		bottom: 0;
-		background: #42B983;
+		background: #343434;
 		z-index: 100;
-		left: -50%;
+		left: -65%;
 	}
 	.left .hp{
 		width: 100px;
@@ -133,29 +185,92 @@
 	.left .list .item{
 		color: white;
 		padding-left: 20%;
-		height: 40px;
-		line-height: 40px;
+		height: 50px;
+		line-height: 50px;
 	}
+	.left .list .item:hover{
+		background: #6a6a6a;
+	}
+	
+	.left .list .item img{
+		width: 24px;
+		vertical-align: middle;
+		margin-left: -5%;
+	}
+	.left .list .item .text{
+		margin-left: 15px;
+		vertical-align: middle;
+		line-height: 50px;
+	}
+	
+	
 	.footer{
 		position: fixed;
 		z-index: 98;
-		width: 60%;
-		left: 20%;
+		width: 70%;
+		left: 15%;
 		bottom: 30px;
-		background: #afafaf;
-		border-radius: 20px;
-		height: 36px;
-		line-height: 36px;
+		background: white;
+		border-radius: 35px;
 		font-size: 0;
+		height: 70px;
+		box-shadow: 0 0 3px 3px rgb(0,0,0,0.4);
 	}
 	.footer .item{
-		color: white;
+		color: #000000;
 		display: inline-block;
 		width: 30%;
 		font-size: 16px;
+		text-align: center;
 	}
 	.footer .item:active{
-		background: #2C3E50;
-		border-radius: 20px;
-	} 
+		background: ;
+	}
+	.footer .item .btn{
+		width: 80px;
+		height: 63px;
+		border-radius: 50%;
+		margin-top: -5px;
+		padding-top: 17px;
+	}
+	.footer .item .btn:hover{
+		background: #333333;
+		color: white;
+	}
+	.footer .item .btn .icon{
+		display: block;
+		margin: auto;
+		width: 27px;
+		height: 25px;
+	}
+	.footer .item:first-child .btn .icon{
+		background: url(../assets/icon/icon1_active.png);
+		background-size: 100% 100%;
+	}
+	.footer .item:active:first-child .btn .icon{
+		background: url(../assets/icon/icon1.png);
+		background-size: 100% 100%;
+	}
+	.footer .item:nth-child(2) .btn .icon{
+		background: url(../assets/icon/icon2_active.png);
+		background-size: 100% 100%;
+	}
+	.footer .item:active:nth-child(2) .btn .icon{
+		background: url(../assets/icon/icon2.png);
+		background-size: 100% 100%;
+	}
+	.footer .item:nth-child(3) .btn .icon{
+		background: url(../assets/icon/icon3_active.png);
+		background-size: 100% 100%;
+	}
+	.footer .item:active:nth-child(3) .btn .icon{
+		background: url(../assets/icon/icon3.png);
+		background-size: 100% 100%;
+	}
+	.footer .item .btn .text{
+		display: block;
+		font-size: 14px;
+		margin-top: 3px;
+	}
+	
 </style>

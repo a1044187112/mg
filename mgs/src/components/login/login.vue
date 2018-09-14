@@ -1,22 +1,52 @@
 <template>
 	<div id="login">
-		<div class="title">登陆</div>
-		<input id="phone" type="number" placeholder="请输入手机号" value="15519178657" />
-		<input id="code" type="password" placeholder="请输入密码" value="123456" />
-		<button class="login" @click='login'> login</button>
-		<button class="register" @click="register">立即注册</button>
-		<button class="find_pwd" @click="findPwd">找回密码</button>
-		<!-- <pop></pop> -->
-		<d></d>
+		<hea-title :hea-msg="par_hea" @ret="retBtn"></hea-title>
+		<div class="con">
+			<div class="remind">手机密码登陆</div>
+			<input id="phone" type="number" placeholder="请输入手机号码"  />
+			<input id="code" type="password" placeholder="请输入密码"  />
+			<div class="ckeck" @click="check" v-bind:class="{active:check_pwd}"></div>
+			<button class="find_pwd" @click="findPwd">忘记密码</button>
+			<button class="login" @click='login'>登陆</button>
+			<button class="register" @click="register">立即注册</button>
+			</div>
+		<component :msg='tips_remind' v-bind:is='which_to_show'></component>
 	</div>
 </template>
 <script>
-	import pop from '../popups/pop.vue'
-	import d from '../date/date'
+	import tips from '../popups/tips.vue'
+	import heaTitle from '../header/header.vue'
 	export default{
 		name:"login",
-		components:{pop,d},
+		components:{tips,heaTitle},
+		data(){
+			return{
+				tips_remind:'手机号输入错误',
+				which_to_show:'',
+				check_pwd:false,
+				par_hea:{
+					left_show:true,
+					t_val:"",
+					right_val:""
+				}
+			}
+		},
 		methods: {
+			addComponents(){
+				this.which_to_show = tips;
+				let _this = this;
+				setTimeout(function(){
+					_this.which_to_show = '';
+				},3000);
+			},
+			retBtn(){
+				console.log("触发事件");
+				
+			},
+			check(){
+				this.check_pwd = !this.check_pwd;
+				this.check_pwd?document.getElementById('code').setAttribute('type','text'):document.getElementById('code').setAttribute('type','password');
+			},
 			register : function(){
 				this.$router.push({path: '/register'})
 			},
@@ -24,14 +54,14 @@
 				this.$router.push({path:'/findPwd'});
 			},
 			login : function(){
-				console.log(arguments);
-				console.log(MouseEvent);
 				let phone = document.getElementById('phone').value;
 				let pwd = document.getElementById('code').value;
 				if(phone.length != 11 ){
-					
+					this.addComponents();
+					this.tips_remind = "手机号输入错误";
 				}else if(pwd.length<6){
-					
+					this.addComponents();
+					this.tips_remind = "密码输入错误";
 				}else{
 					let data = {mobile:phone,password:pwd};
 					let sign = this.ajax.md5(data,this.md5);
@@ -56,57 +86,78 @@
 	}
 </script>
 <style>
-	#login input{
-		height: 36px;
-		line-height: 36px;
+	#login .con{
 		width: 80%;
 		margin: auto;
-		margin-top: 5px;
-		padding-left: 10px;
-		outline: none;
-		border: 1px solid #CFCFCF;
+		margin-top: 20px;
+		text-align: left;
 	}
-	button{
+	#login .con .remind{
+		font-size: 22px;
+		font-weight: 600;;
+		margin-bottom: 20px;
+	}
+	#login .con input{
+		border: none;
+		border-bottom: 1px solid #aaaaaa;
+		height: 48px;
+		width: 100%;
+		margin: auto;
+		margin-top: 5px;
+		text-indent: 20px;
+		outline: none;
+		margin-top: 15px;
+	}
+	#login .con  button{
 		display: block;
 		margin-top: 5;
 	}
-	.get_code{
+	#login .con .ckeck{
+		width: 25px;
+		height: 14px;
+		position: absolute;
+		top: 220px;
+		right: 10%;
+		background: url(../../../static/icon/icon16.png);
+		background-size: 100% 100%;
+	}
+	#login .con .ckeck.active{
+		background: url(../../../static/icon/icon18.png);
+		background-size: 100% 100%;
+	}
+	
+	#login .con  .find_pwd{
 		float: right;
-		margin-right: 10%;
-		margin-top: 10px;
-		padding: 0 10px;
-		height: 30px;
-	}
-	.login{
-		width: 80%;
-		height: 40px;
-		font-size: 24px;
-		margin: auto;
-		margin-top: 80px;
-		background: #42B983;
-		border: none;
-		color: white;
-		outline: none;
-	}
-	.login:active{
-		background: #5cd39c;
-	}
-	.find_pwd,
-	.register{
+		margin-top: -17px;
 		margin-left: 10%;
 		margin-top: 10px;
 		border:none;
 		background: white;
-		color: blue;
+		color: #000000;
 		outline: none;
+		font-size: 16px;
+		
 	}
-	.find_pwd{
-		float: right;
-		margin-top: -17px;
-		margin-right: 10%;
+	#login .con .register,
+	#login .con .login{
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		font-size: 20px;
+		margin: auto;
+		margin-top: 80px;
+		background: #343434;
+		border: none;
+		color: white;
+		outline: none;
+		text-align: center;
+		border-radius: 10px;
+		letter-spacing: 4px;
 	}
-	.find_pwd:active,
-	.register:active{
-		color: #3037b5;
-	} 
+	#login .con .register{
+		margin-top: 25px;
+		background: white;
+		border: 1px solid #aaaaaa;
+		color: #000000;
+	}
 </style>
