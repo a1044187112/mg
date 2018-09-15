@@ -1,14 +1,12 @@
 <template>
 	<div id="certi">
-		<div class="title">
-			<span>身份证认证</span>
-		</div>
+		<hea :hea-msg="par_hea"></hea>
 		<ul class="u_i">
 			<li class="l_i">
-				<input type="text" placeholder="真实姓名" />
+				<input id="name" type="text" placeholder="请输入真实姓名" />
 			</li>
 			<li class="l_i">
-				<input type="text" placeholder="身份证号码" />
+				<input id="card_no" type="text" placeholder="请输入身份证号 " />
 			</li>
 		</ul>
 		
@@ -16,8 +14,19 @@
 	</div>
 </template>
 <script>
+	import hea  from '../header/header.vue'
 	export default{
 		name:"certi",
+		components:{hea},
+		data(){
+			return{
+				par_hea:{
+					left_show:true,
+					t_val:"身份证认证",
+					right_val:""
+				},
+			}
+		},
 		methods:{
 			next(){
 				this.$router.push({path:"/user/certi/img"});
@@ -32,10 +41,11 @@
 	}
 	#certi .u_i .l_i{
 		width: 80%;
-		height: 42px;
-		line-height: 48px;
-		border-bottom: 1px solid #777777;
+		height: 50px;
+		line-height: 50px;
+		border-bottom: 1px solid #cccccc;
 		margin-left: 10%;
+		margin-top: 20px;
 	}
 	#certi .u_i .l_i input{
 		width: 100%;
@@ -44,17 +54,19 @@
 		padding-left: 10px;
 		width: 100%;
 		outline: none;
+		
 	}
 	#certi .next{
 		display: block;
 		margin: auto;
 		margin-top: 80px;
-		width: 60%;
-		height: 36px;
-		line-height: 36px;
+		width: 80%;
+		height: 50px;
+		line-height: 50px;
 		text-align: center;
-		background: #42B983;
+		background: #343434;
 		color: white;
 		border-radius: 10px;
+		letter-spacing: 2px;
 	} 
 </style>

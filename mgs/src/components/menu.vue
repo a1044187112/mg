@@ -1,9 +1,9 @@
 <template>
 	<div id="menu">
 		<div class="header">
-			<span class="t_left" @click="moreMenu"><img src="../assets/icon/icon9.png" /></span>
+			<span class="t_left" @click="moreMenu"><img src="/static/icon/icon9.png" /></span>
 			<span class="title">美告</span>
-			<span class="t_right"><img src="../assets/icon/icon10.png" />
+			<span class="t_right"><img src="/static/icon/icon10.png" />
 				<span class="info_text">2</span>
 			</span>
 		</div>
@@ -15,7 +15,7 @@
 			<div class="name">test</div>
 			<div class="leavl">未认证</div>
 			<div class="list">
-				<router-link v-for='item in menuList' v-bind:to="item.to">
+				<router-link v-for='(item,key)  in menuList' v-bind:to="item.to" v-bind:key='key'>
 					<div class="item">
 						<img v-bind:src="item.img"  />
 						<span class="text">{{item.text}}</span>
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="footer">
-			<router-link v-for='item in bMenu'  v-bind:to="item.to" class="item">
+			<router-link v-for='(item,key) in bMenu'  v-bind:to="item.to" class="item" v-bind:key='key'>
 				<div class="btn active">
 					<div class="icon"></div>
 					<span class="text">{{item.text}}</span>
@@ -244,27 +244,27 @@
 		height: 25px;
 	}
 	.footer .item:first-child .btn .icon{
-		background: url(../assets/icon/icon1_active.png);
+		background: url(/static/icon/icon1_active.png);
 		background-size: 100% 100%;
 	}
 	.footer .item:active:first-child .btn .icon{
-		background: url(../assets/icon/icon1.png);
+		background: url(/static/icon/icon1.png);
 		background-size: 100% 100%;
 	}
 	.footer .item:nth-child(2) .btn .icon{
-		background: url(../assets/icon/icon2_active.png);
+		background: url(/static/icon/icon2_active.png);
 		background-size: 100% 100%;
 	}
 	.footer .item:active:nth-child(2) .btn .icon{
-		background: url(../assets/icon/icon2.png);
+		background: url(/static/icon/icon2.png);
 		background-size: 100% 100%;
 	}
 	.footer .item:nth-child(3) .btn .icon{
-		background: url(../assets/icon/icon3_active.png);
+		background: url(/static/icon/icon3_active.png);
 		background-size: 100% 100%;
 	}
 	.footer .item:active:nth-child(3) .btn .icon{
-		background: url(../assets/icon/icon3.png);
+		background: url(/static/icon/icon3.png);
 		background-size: 100% 100%;
 	}
 	.footer .item .btn .text{

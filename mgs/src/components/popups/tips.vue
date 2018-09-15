@@ -29,7 +29,7 @@
 	#tips .info{
 		width: 60%;
 		margin-left: 20%;
-		position: absolute;
+		position: absolute;A
 		top: 80%;
 		z-index: 200;
 		height: 40px;

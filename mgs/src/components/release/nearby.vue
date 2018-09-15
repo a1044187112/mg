@@ -15,7 +15,7 @@
 			</li>
 		</ul>
 		<div>
-			<component :is="item.component" :text="item.text" v-for="item in items"></component>
+			<component :is="item.component" :text="item.text" v-for="(item,key) in items" v-bind:key='key'></component>
 			<condition></condition>
 			<span class="add" @click="add">添加</span>
 		</div>
