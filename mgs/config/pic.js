@@ -61,3 +61,16 @@ let PIC = {
 	},
 };
 export { PIC }
+
+// 调用方式
+// upload() {
+// 	let arr = document.getElementById('load_img').files[0];
+// 	
+// 	// 获取文件对象
+// 	var blob = this.PIC.imgPro(event, this.imgCallback);
+// },
+// imgCallback(blob) {
+// 	console.log(blob);
+// 	console.log(blob.width + "-----------"+blob.height);
+// 	this.imgPreview = window.URL.createObjectURL(blob);
+// }

@@ -11,6 +11,7 @@
 		</ul>
 		
 		<span class="next" @click="next">下一步</span>
+		<router-link to="/user/certi/sc">跳转到用户认证成功页面</router-link>
 	</div>
 </template>
 <script>
@@ -29,7 +30,7 @@
 		},
 		methods:{
 			next(){
-				this.$router.push({path:"/user/certi/img"});
+				this.$router.push({path:"/user/certi/img?type=1"});
 			}
 		}
 	}

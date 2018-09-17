@@ -16,9 +16,10 @@ import details from '@/components/order/details'
 import mg from '@/components/mg/index'
 
 import user from '@/components/user/user'
-import edit from '@/components/user/edit'
+import enterprise from '@/components/user/enterprise'
 import certi from '@/components/user/certi'
-import certiImg from '@/components/user/certiImg'                    
+import certiImg from '@/components/user/certiImg'
+import sc from '@/components/user/succCerti'            
 
 import wallet from '@/components/wallet/wallet'
 import bankCard from '@/components/wallet/bankCard'
@@ -92,13 +93,17 @@ export default new Router({
 					name:'certi',
 					component:certi
 				},{
-				path:'/user/edit',
-				name:'edit',
-				component:edit
+				path:'/user/enterprise',
+				name:'enterprise',
+				component:enterprise
 			},{
 				path:'/user/certi/img',
 				name:'certiImg',
 				component:certiImg
+			},{
+				path:'/user/certi/sc',
+				name:'sc',
+				component:sc
 			},{
 				path:'/order',
 				name:'order',

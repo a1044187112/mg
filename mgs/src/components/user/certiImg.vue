@@ -1,19 +1,13 @@
 <template>
 	<div id="load">
-		<hea :hea-msg="par_hea"></hea>
+		<hea :hea-msg="par_hea" ></hea>
 		<div class="con">
-			<div class="item">
-				<span class="t">上传身份证人像面</span>
+			<div class="item" v-for="(item,key) in list" v-bind:id="key">
+				<span class="t">{{item.title}}</span>
 				<div class="card">
-					<img class="card_img" src="../../../static/icon/icon25.png" />	
-					<img @click="cardClick('card_1')" class="card_icon" src="../../../static/icon/icon26.png" />
-					<input id="card_1" type="file" accept="image/*" />
-				</div>
-				<span class="t">上传身份证国徽面</span>
-				<div class="card">
-					<img class="card_img" src="../../../static/icon/icon21.png" />	
-					<img @click="cardClick('card_2')" class="card_icon" src="../../../static/icon/icon26.png" />
-					<input id="card_2" type="file" accept="image/*" />
+					<img class="card_img" v-bind:src="item.img_src" />	
+					<img @click="cardClick(item.id)" class="card_icon" src="../../../static/icon/icon26.png" />
+					<input v-bind:id="item.id" type="file" accept="image/*" />
 				</div>
 			</div>
 			
@@ -28,14 +22,51 @@
 		components:{hea},
 		data(){
 			return{
-				par_hea:{
+				par_hea:{},
+				par_hea_a:{
 					left_show:true,
 					t_val:"身份证认证",
 					right_val:""
 				},
+				par_hea_b:{
+					left_show:true,
+					t_val:"企业认证",
+					right_val:""
+				},
+				list:[],
+				list_1:[
+					{title:'上传身份证人像面',id:'card_1',img_src:"../../../static/icon/icon25.png"},
+					{title:'上传身份证国徽面',id:'card_2',img_src:"../../../static/icon/icon21.png"},
+				],
+				list_2:[
+					{title:'请上传公司商标注册证',id:'card_3',img_src:"../../../static/icon/icon29.png"},
+					{title:'请上传个体商户营业执照',id:'card_4',img_src:"../../../static/icon/icon30.png"},
+				],
+				list_3:[
+					{title:'请上传个体商户营业执照',id:'card_5',img_src:"../../../static/icon/icon30.png"},
+				],
 			}
 		},
+		mounted:function(){
+			this.getType();
+		},
 		methods:{
+			getType(){
+				let url = window.location.href;
+				if(url.indexOf("?") > -1){
+					let arr = url.split("?")[1].split("=");
+					if(arr[1] === '1'){ // 身份证认证
+						this.par_hea = this.par_hea_a;
+						this.list = this.list_1;
+					}else if(arr[1] === '2'){  // 企业认证 公司
+						this.par_hea = this.par_hea_b;
+						this.list = this.list_2;
+					}else if(arr[1] === '3'){ // 企业认证 个体工商户
+						this.par_hea = this.par_hea_b;
+						this.list = this.list_3;
+					}
+				}
+			},
 			cardClick(sel){
 				let inputSel = document.getElementById(sel);
 				inputSel.click();
@@ -52,7 +83,7 @@
 	}
 	#load .con .item .t{
 		line-height: 48px;
-		font-size: 18px;
+		font-size: 14px;
 	}
 	#load .con .card{
 		width: 100%;
@@ -72,10 +103,9 @@
 		position: absolute;
 		width: 20%;
 		margin-left: 40%;
-		top: 65px;
+		top: 35%;
 	}
-	#load .con .card #card_2,
-	#load .con .card #card_1{
+	#load .con .card input{
 		display: none;
 	}
 	#load .con .confirm{
@@ -91,6 +121,7 @@
 		border-radius: 10px;
 		letter-spacing: 2px;
 		margin-bottom: 40px;
+		font-size: 14px;
 	}
 	
 </style>

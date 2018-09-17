@@ -16,6 +16,7 @@
 			}
 		}
 	}
+	// <hea :hea-msg="par_hea"></hea>
 // 	par_hea:{  // 父组件传递参数
 // 		left_show:true,
 // 		t_val:"",
@@ -34,12 +35,12 @@
 		overflow: hidden;
 	}
 	#hea .hea_left img{
-		width: 12px;
-		margin-top: 12px;
+		width: 10px;
+		margin-top: 16px;
 		margin-left: 10px;
 	}
 	#hea .hea_title{
-		font-size: 20px;
+		font-size: 16px;
 	}
 	#hea .hea_right{
 		position: absolute;

@@ -1,5 +1,5 @@
 <template>
-	<div v-if="date_show" id="date">
+	<div id="date">
 		<div class="d_bg"></div>
 		<div class="d_con">
 			<div class="d_con_i">
@@ -27,7 +27,6 @@
 		name:'date',
 		data(){
 			return{
-				date_show:true,
 				dataY:[],
 				dataM:[
 					{month:'',id:"0"},
@@ -160,14 +159,18 @@
 				}
 			},
 			cancel(){
-				this.date_show = false;
+				this.$emit('dateCancel');
 			},
 			confirm(){
-				this.date_show = false;
-			}
+				let year = document.querySelector('.d_y_i.active').innerText.substring(0,4);
+				let month =  document.querySelector('.d_m_i.active').innerText.substring(0,2);
+				let day = document.querySelector('.d_d_i.active').innerText.substring(0,2);
+				let birthday = year+'-'+month+"-"+day;
+				this.$emit('dateConfirm',birthday);
+			},
 		},
 		destroyed:function(){
-			console.log(55555)
+			
 		}
 		
 	}
@@ -205,7 +208,7 @@
 		position: absolute;
 		width: 90%;
 		margin-top: 36px;
-		border-top: 1px solid crimson;
+		/* border-top: 1px solid crimson; */
 	}
 	#date .d_con .d_con_i .bottom_line{
 		margin-top: 72px;
@@ -220,11 +223,12 @@
 	#date .d_con .d_con_i ul li{
 		height: 36px;
 		line-height: 36px;
-		font-size: 16px;
+		font-size: 14px;
+		color: #888888;
 	}
 	#date .d_con .d_con_i ul li.active{
-		/* border-bottom: 1px solid #ff0000; */
-		font-size: 20px;
+		font-size: 16px;
+		color: #000000;
 	}
 	#date .d_con .btn{
 		width: 100%;
