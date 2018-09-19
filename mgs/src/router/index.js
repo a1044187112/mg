@@ -82,7 +82,7 @@ export default new Router({
 					name:'customize',
 					component:customize
 				},
-			],redirect:'/national'
+			],redirect:'/nearby'
 		},
 		{
 			path:"/user",

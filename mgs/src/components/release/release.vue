@@ -1,51 +1,69 @@
 <template>
 	<div id="release">
-		<div class="title">
-			<span class="t">美告发布</span>
-			<span class="right">秘籍</span>
-		</div>
+		<hea :heaMsg="par_hea"></hea>
 		<div class="box">
 			<div class="adver">
-				<img src="../../assets/hp.jpg" />
+				<img src="../../../static/icon/icon32.png" />
 			</div>
 			<input class="upload_i" type="file" />
-			<span class="upload">上传</span>
+			<span class="upload">上传图片</span>
 		</div>
 		<div class="info">
 			<span class="info_t">投放范围</span>
-			<select v-model="range"  @change="getCouponSelected" >
-				<option :value="coupon.id" v-for="coupon in couponList" >{{coupon.name}}</option>        
-			</select>
+			<div class="select">
+				<span @click="dropDown" class="sel">{{sel_text}}</span>
+				<ul v-if="drop_show" class="info_u">
+					<li @click="selItem('nearby')" class="info_i">附近</li>
+					<li  @click="selItem('all')" class="info_i">全国</li>
+					<li  @click="selItem('customize')" class="info_i">自定义</li>
+				</ul>
+			</div>
+			<span class="save">保存</span>
 		</div>
 		<router-view></router-view>
 	</div>
 </template>
 <script>
+	import hea from '../header/header.vue'
 	export default{
 		name:'release',
+		components:{hea},
 		data(){
 			return{
-				couponList:[
-                        {id: 'all',name: '全国'},
-                        {id: 'nearby',name: '附近'},
-                        {id: 'customize',name: '自定义'}
-                    ],
-				range:''
+				par_hea:{  // 父组件传递参数
+					left_show:true,
+					t_val:"美高发布",
+					right_val:"秘籍"
+				},
+				drop_show:false,
+				sel_text:'附近',
 			}
 		},
-		created(){
-　　　　　　//如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
-			this.range = this.couponList[0].id;
-         },
+		mounted:function(){
+			this.initData();
+		},
 		methods: {
-		　getCouponSelected(){
-			console.log(5555555555555)
-				switch(this.range){
-					case "all":  this.$router.push({path:'/national'}); break;
-					case "nearby": this.$router.push({path:'/nearby'}); break;
-					case "customize":this.$router.push({path:'/customize'}); break;
+			initData(){
+				let url = window.location.href;
+				if(url.indexOf('national')>0){ 
+					this.sel_text = "全国";
+				}else if(url.indexOf('nearby')>0){
+					this.sel_text = "附近";
+				}else if(url.indexOf('customize')>0){
+					this.sel_text = "自定义";
 				}
-			}
+			},
+			dropDown(){
+				this.drop_show = !this.drop_show;
+			},
+		　	selItem(text){
+				this.drop_show = !this.drop_show;
+				switch(text){
+					case "all":  this.$router.push({path:'/national'});this.sel_text = "全国"; break;
+					case "nearby": this.$router.push({path:'/nearby'});this.sel_text = "附近"; break;
+					case "customize":this.$router.push({path:'/customize'});this.sel_text = "自定义"; break;
+				}
+			},
 		},
 	}
 </script>
@@ -54,48 +72,83 @@
 		list-style: none;
 		margin: 0;
 	}
-	.title{
-		width: 100%;
-		position: relative;
-		height: 36px;
-		line-height: 36px;
-	}
-	.title .right{
-		position: absolute;
-		top: 0;
-		height: 36px;
-		line-height: 36px;
-		display: inline-block;
-		right: 3%;
-	}
 	.box{
 		width: 100%;
+		border-top: 1px solid #CCCCCC;
+		padding-top: 5px;
+		position: relative;
 	}
 	.box .adver img{
-		width: 80%;
-		height: 130px;
+		width: 96%;
 	}
 	.box .upload_i{
-		height: 0px;
-		border: none;
-		position: fixed;
-		z-index: -10;
-		top: 40px;
+		display: none;
 	}
 	.box .upload{
 		display: inline-block;
-		width: 120px;
 		height: 36px;
-		background: #42B983;
-		color: white;
 		line-height: 36px;
-		border-radius: 20px;
-		margin-top: 10px;
+		position: absolute;
+		min-width: 80px;
+		top: 50px;
+		left: 35%;
+		border: 1px dotted #c1c1c1;
+		color: #959595;
+		padding-left: 20px;
+		background: url(../../../static/icon/icon34.png) no-repeat;
+		background-position: 12px 10px;
+		background-size: 15px 15px;
+		font-size: 14px;
+		z-index: 1;
+		letter-spacing: 1px;
 	}
 	.info{
 		margin-top: 10px;
 		padding: 10px 0;
-		border-top: 1px solid #bfbfbf;
-		border-bottom: 1px solid #bfbfbf;
+		text-align: left;
+		text-indent: 15px;
+		font-size: 14px;
 	} 
+	.info .select{
+		display: inline-block;
+		position: relative;
+	}
+	.info .select .sel{
+		display: inline-block;
+		width: 70px;
+		padding-right: 15px;
+		height: 36px;
+		border: 1px solid #CCCCCC;
+		line-height: 36px;
+		vertical-align: middle;
+		border-radius: 5px;
+		background: url(../../../static/icon/icon33.png) no-repeat;
+		background-position: 60px 14px;
+		background-size: 16px ;
+	}
+	.info .select .info_u{
+		position: absolute;
+		background: white;
+		width: 77px;
+		left: 15px;
+		border: 1px solid #CCCCCC;
+		top: 36px;
+		z-index: 21;
+	}
+	.info .select .info_u .info_i{
+		height: 32px;
+		line-height: 32px;
+		width: 100%;
+		border-bottom: 1px dotted #CCCCCC;
+		
+	}
+	.info .select .info_u .info_i:last-child{
+		border: none;
+	}
+	.info .save{
+		float: right;
+		margin-right: 15px;
+		color: #eb5c52;
+		letter-spacing: 1px;
+	}
 </style>
